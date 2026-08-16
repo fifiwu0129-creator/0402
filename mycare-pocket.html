@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyCare Pocket · 多國語言隨身電子病例</title>
+<style>
+:root{
+  --bg:#eef8ff;--card:#ffffff;--primary:#4b9ed1;--primary-dark:#2878aa;
+  --soft:#dff1fb;--line:#cfe5f2;--text:#183447;--muted:#6b8493;
+  --danger:#c75b69;--shadow:0 12px 35px rgba(53,112,145,.12);--radius:20px;
+}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,"Noto Sans TC","Noto Sans KR","Noto Sans JP",Arial,sans-serif;
+background:linear-gradient(135deg,#eef9ff,#f8fcff 55%,#e7f5fc);color:var(--text)}
+button,input,select,textarea{font:inherit} button{cursor:pointer}
+.app{max-width:1400px;margin:auto;padding:24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:14px}.logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(145deg,#76bce1,#4b9ed1);
+display:grid;place-items:center;color:white;font-size:26px;box-shadow:var(--shadow)}
+h1,h2,h3,p{margin-top:0}.brand h1{font-size:22px;margin:0}.brand small{color:var(--muted)}
+.lang{border:1px solid var(--line);background:white;padding:11px 14px;border-radius:12px;color:var(--text)}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:20px}
+nav,.panel,.card{background:rgba(255,255,255,.92);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius)}
+nav{padding:14px;height:max-content;position:sticky;top:18px}
+.nav-btn{width:100%;border:0;background:transparent;text-align:left;padding:13px 14px;border-radius:12px;color:var(--muted);margin:3px 0}
+.nav-btn.active,.nav-btn:hover{background:var(--soft);color:var(--primary-dark);font-weight:700}
+main{min-width:0}.hero{background:linear-gradient(135deg,#d9f1fc,#f7fcff);border:1px solid var(--line);border-radius:var(--radius);padding:25px;display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:18px}
+.hero p{color:var(--muted);margin-bottom:0}.badge{background:white;border:1px solid var(--line);padding:8px 12px;border-radius:999px;color:var(--primary-dark);white-space:nowrap}
+.section{display:none}.section.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{padding:20px}.card h3{font-size:16px}.full{grid-column:1/-1}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+input,select,textarea{width:100%;border:1px solid var(--line);background:#fbfdff;border-radius:11px;padding:11px 12px;outline:none;color:var(--text)}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(75,158,209,.12)}
+textarea{min-height:110px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:11px;padding:10px 14px;background:var(--primary);color:white;font-weight:700}
+.btn.secondary{background:white;color:var(--primary-dark);border:1px solid var(--line)}.btn.danger{background:#fff1f3;color:var(--danger);border:1px solid #f1c9cf}
+.item{border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px;background:#fbfdff}.item strong{display:block;margin-bottom:5px}.item span{color:var(--muted);font-size:13px}
+.status{padding:14px;border-radius:14px;background:#edf9f1;border:1px solid #ccebd7;color:#34724a;margin-bottom:16px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}nav{position:static;display:flex;overflow:auto;gap:4px}.nav-btn{min-width:max-content}.grid,.grid.three{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="logo">✚</div><div><h1>MyCare Pocket</h1><small data-i18n="subtitle">多國語言隨身電子病例</small></div></div>
+  <select id="language" class="lang" aria-label="Language">
+    <option value="zh">繁體中文</option><option value="en">English</option><option value="ko">한국어</option><option value="ja">日本語</option>
+  </select>
+</header>
+
+<div class="layout">
+<nav>
+  <button class="nav-btn active" data-target="overview" data-i18n="nav.overview">病例總覽</button>
+  <button class="nav-btn" data-target="personal" data-i18n="nav.personal">個人史</button>
+  <button class="nav-btn" data-target="disease" data-i18n="nav.disease">疾病史</button>
+  <button class="nav-btn" data-target="family" data-i18n="nav.family">家族史</button>
+  <button class="nav-btn" data-target="surgery" data-i18n="nav.surgery">手術／住院</button>
+  <button class="nav-btn" data-target="medication" data-i18n="nav.medication">用藥／過敏</button>
+  <button class="nav-btn" data-target="lifestyle" data-i18n="nav.lifestyle">生活／預防</button>
+  <button class="nav-btn" data-target="emergency" data-i18n="nav.emergency">緊急資訊</button>
+</nav>
+
+<main>
+<section id="overview" class="section active">
+  <div class="hero"><div><h2 data-i18n="hero.title">你的健康資料，一頁掌握</h2><p data-i18n="hero.desc">適合旅行、就醫、轉診時快速提供重要病史。</p></div><div class="badge">🔒 <span data-i18n="localOnly">資料僅儲存在本機瀏覽器</span></div></div>
+  <div class="status">✓ <span data-i18n="status">這是一個靜態離線病例工具；不會自動上傳資料。</span></div>
+  <div class="grid three">
+    <div class="card"><h3 data-i18n="overview.basic">基本資料</h3><p id="summaryBasic">—</p></div>
+    <div class="card"><h3 data-i18n="overview.med">目前用藥</h3><p id="summaryMed">—</p></div>
+    <div class="card"><h3 data-i18n="overview.alert">重要警示</h3><p id="summaryAlert">—</p></div>
+  </div>
+</section>
+
+<section id="personal" class="section">
+<div class="card"><h2 data-i18n="personal.title">個人史</h2>
+<div class="grid"><div><label data-i18n="f.name">姓名</label><input id="name"></div><div><label data-i18n="f.dob">出生日期</label><input id="dob" type="date"></div>
+<div><label data-i18n="f.sex">生理性別</label><select id="sex"><option>—</option><option>Female</option><option>Male</option><option>Other</option></select></div>
+<div><label data-i18n="f.blood">血型</label><select id="blood"><option>—</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div>
+<div><label data-i18n="f.height">身高 cm</label><input id="height"></div><div><label data-i18n="f.weight">體重 kg</label><input id="weight"></div>
+<div><label data-i18n="f.nationality">國籍／居住地</label><input id="nationality"></div><div><label data-i18n="f.language">主要語言</label><input id="spoken"></div></div>
+<label data-i18n="f.contact">聯絡資訊／緊急聯絡人</label><textarea id="contact"></textarea>
+<div class="row"><button class="btn" onclick="save()" data-i18n="save">儲存</button><button class="btn secondary" onclick="exportJSON()" data-i18n="export">匯出 JSON</button><button class="btn secondary" onclick="window.print()" data-i18n="print">列印／PDF</button></div>
+</div></section>
+
+<section id="disease" class="section"><div class="card"><h2 data-i18n="disease.title">疾病史／重要診斷</h2><textarea id="diseaseText" data-placeholder="disease.ph" placeholder="例如：高血壓、糖尿病、氣喘、癌症、心臟疾病……"></textarea><label data-i18n="f.notes">重要檢查／檢驗／目前狀況</label><textarea id="diseaseNotes"></textarea></div></section>
+
+<section id="family" class="section"><div class="card"><h2 data-i18n="family.title">家族史</h2><textarea id="familyText" data-placeholder="family.ph" placeholder="例如：父親—高血壓；母親—乳癌；兄弟姊妹—……"></textarea><label data-i18n="f.genetic">已知遺傳疾病／家族風險</label><textarea id="genetic"></textarea></div></section>
+
+<section id="surgery" class="section"><div class="card"><h2 data-i18n="surgery.title">手術／住院史</h2><textarea id="surgeryText" data-placeholder="surgery.ph" placeholder="日期／手術名稱／醫院／原因／結果"></textarea><label data-i18n="f.anesthesia">麻醉相關問題或特殊反應</label><textarea id="anesthesia"></textarea></div></section>
+
+<section id="medication" class="section"><div class="grid">
+<div class="card"><h2 data-i18n="med.title">目前用藥</h2><textarea id="medications" data-placeholder="med.ph" placeholder="藥名／劑量／頻率／用途"></textarea></div>
+<div class="card"><h2 data-i18n="allergy.title">過敏史</h2><textarea id="allergies" data-placeholder="allergy.ph" placeholder="藥物、食物、乳膠、顯影劑等；若無請填 No known allergies"></textarea></div>
+<div class="card full"><h2 data-i18n="vacc.title">疫苗／免疫</h2><textarea id="vaccines" data-placeholder="vacc.ph" placeholder="COVID-19、流感、破傷風、B型肝炎、旅行疫苗等"></textarea></div></div></section>
+
+<section id="lifestyle" class="section"><div class="grid">
+<div class="card"><h2 data-i18n="life.title">生活史</h2><label data-i18n="f.smoke">吸菸</label><input id="smoke"><label data-i18n="f.alcohol">酒精</label><input id="alcohol"><label data-i18n="f.exercise">運動</label><input id="exercise"><label data-i18n="f.diet">飲食／特殊飲食</label><input id="diet"></div>
+<div class="card"><h2 data-i18n="prevent.title">預防保健</h2><label data-i18n="f.screening">近期健康檢查／篩檢</label><textarea id="screening"></textarea><label data-i18n="f.dental">牙科／眼科重要資訊</label><textarea id="dental"></textarea></div>
+<div class="card full"><h2 data-i18n="other.title">其他重要資訊</h2><textarea id="other" data-placeholder="other.ph" placeholder="植入物、器官移植、輸血史、宗教／飲食限制、照護偏好、醫療代理人等"></textarea></div></div></section>
+
+<section id="emergency" class="section"><div class="card"><h2 data-i18n="emergency.title">緊急就醫資訊</h2>
+<div class="grid"><div><label data-i18n="f.emergency">緊急聯絡人</label><input id="emergencyName"></div><div><label data-i18n="f.phone">電話</label><input id="emergencyPhone"></div><div><label data-i18n="f.doctor">主要醫師／診所</label><input id="doctor"></div><div><label data-i18n="f.insurance">保險／會員編號</label><input id="insurance"></div></div>
+<label data-i18n="f.alert">請醫療人員優先注意</label><textarea id="alert"></textarea><div class="row"><button class="btn" onclick="save()" data-i18n="save">儲存</button><button class="btn danger" onclick="clearAll()" data-i18n="clear">清除本機資料</button></div>
+</div></section>
+</main></div>
+<footer data-i18n="footer">MyCare Pocket · 個人健康資料工具。正式就醫時請以醫療院所紀錄及醫師判斷為準。</footer>
+</div>
+
+<script>
+const fields=["name","dob","sex","blood","height","weight","nationality","spoken","contact","diseaseText","diseaseNotes","familyText","genetic","surgeryText","anesthesia","medications","allergies","vaccines","smoke","alcohol","exercise","diet","screening","dental","other","emergencyName","emergencyPhone","doctor","insurance","alert"];
+const T={
+zh:{subtitle:"多國語言隨身電子病例",nav:{overview:"病例總覽",personal:"個人史",disease:"疾病史",family:"家族史",surgery:"手術／住院",medication:"用藥／過敏",lifestyle:"生活／預防",emergency:"緊急資訊"},hero:{title:"你的健康資料，一頁掌握",desc:"適合旅行、就醫、轉診時快速提供重要病史。"},localOnly:"資料僅儲存在本機瀏覽器",status:"這是一個靜態離線病例工具；不會自動上傳資料。",overview:{basic:"基本資料",med:"目前用藥",alert:"重要警示"},personal:{title:"個人史"},disease:{title:"疾病史／重要診斷"},family:{title:"家族史"},surgery:{title:"手術／住院史"},med:{title:"目前用藥"},allergy:{title:"過敏史"},vacc:{title:"疫苗／免疫"},life:{title:"生活史"},prevent:{title:"預防保健"},other:{title:"其他重要資訊"},emergency:{title:"緊急就醫資訊"},save:"儲存",export:"匯出 JSON",print:"列印／PDF",clear:"清除本機資料",f:{name:"姓名",dob:"出生日期",sex:"生理性別",blood:"血型",height:"身高 cm",weight:"體重 kg",nationality:"國籍／居住地",language:"主要語言",contact:"聯絡資訊／緊急聯絡人",notes:"重要檢查／檢驗／目前狀況",genetic:"已知遺傳疾病／家族風險",anesthesia:"麻醉相關問題或特殊反應",smoke:"吸菸",alcohol:"酒精",exercise:"運動",diet:"飲食／特殊飲食",screening:"近期健康檢查／篩檢",dental:"牙科／眼科重要資訊",emergency:"緊急聯絡人",phone:"電話",doctor:"主要醫師／診所",insurance:"保險／會員編號",alert:"請醫療人員優先注意"},footer:"MyCare Pocket · 個人健康資料工具。正式就醫時請以醫療院所紀錄及醫師判斷為準。"},
+en:{subtitle:"Multilingual Pocket Medical Record",nav:{overview:"Overview",personal:"Personal History",disease:"Medical History",family:"Family History",surgery:"Surgery / Hospital",medication:"Medication / Allergies",lifestyle:"Lifestyle / Prevention",emergency:"Emergency"},hero:{title:"Your health information, at a glance",desc:"Useful for travel, medical visits, referrals, and emergencies."},localOnly:"Data stays in this browser",status:"Static offline record tool; nothing is uploaded automatically.",overview:{basic:"Basic profile",med:"Current medications",alert:"Important alerts"},personal:{title:"Personal History"},disease:{title:"Medical History / Diagnoses"},family:{title:"Family History"},surgery:{title:"Surgery / Hospitalization"},med:{title:"Current Medications"},allergy:{title:"Allergies"},vacc:{title:"Vaccines / Immunization"},life:{title:"Lifestyle"},prevent:{title:"Preventive Care"},other:{title:"Other Important Information"},emergency:{title:"Emergency Information"},save:"Save",export:"Export JSON",print:"Print / PDF",clear:"Clear local data",f:{name:"Name",dob:"Date of birth",sex:"Sex",blood:"Blood type",height:"Height cm",weight:"Weight kg",nationality:"Nationality / Residence",language:"Primary language",contact:"Contact / Emergency contact",notes:"Important tests / current status",genetic:"Known genetic conditions / family risks",anesthesia:"Anesthesia problems or reactions",smoke:"Smoking",alcohol:"Alcohol",exercise:"Exercise",diet:"Diet / restrictions",screening:"Recent health checks / screening",dental:"Dental / eye information",emergency:"Emergency contact",phone:"Phone",doctor:"Primary doctor / clinic",insurance:"Insurance / member ID",alert:"Priority information for clinicians"},footer:"MyCare Pocket · Personal health information tool. For clinical care, rely on official medical records and clinician judgment."},
+ko:{subtitle:"다국어 휴대용 전자 의료기록",nav:{overview:"기록 요약",personal:"개인력",disease:"질병력",family:"가족력",surgery:"수술 / 입원",medication:"복용약 / 알레르기",lifestyle:"생활습관 / 예방",emergency:"응급 정보"},hero:{title:"건강 정보를 한눈에",desc:"여행, 진료, 의뢰 및 응급 상황에서 중요한 병력을 빠르게 확인합니다."},localOnly:"데이터는 이 브라우저에만 저장됩니다",status:"정적 오프라인 기록 도구이며 자동 업로드하지 않습니다.",overview:{basic:"기본 정보",med:"현재 복용약",alert:"중요 알림"},personal:{title:"개인력"},disease:{title:"질병력 / 진단"},family:{title:"가족력"},surgery:{title:"수술 / 입원력"},med:{title:"현재 복용약"},allergy:{title:"알레르기"},vacc:{title:"백신 / 예방접종"},life:{title:"생활습관"},prevent:{title:"예방 관리"},other:{title:"기타 중요 정보"},emergency:{title:"응급 의료 정보"},save:"저장",export:"JSON 내보내기",print:"인쇄 / PDF",clear:"로컬 데이터 삭제",f:{name:"이름",dob:"생년월일",sex:"성별",blood:"혈액형",height:"키 cm",weight:"체중 kg",nationality:"국적 / 거주지",language:"주 사용 언어",contact:"연락처 / 응급 연락처",notes:"중요 검사 / 현재 상태",genetic:"유전질환 / 가족 위험",anesthesia:"마취 관련 문제 또는 반응",smoke:"흡연",alcohol:"음주",exercise:"운동",diet:"식이 / 제한",screening:"최근 건강검진 / 선별검사",dental:"치과 / 안과 중요 정보",emergency:"응급 연락처",phone:"전화",doctor:"주치의 / 병원",insurance:"보험 / 회원번호",alert:"의료진이 우선 확인할 정보"},footer:"MyCare Pocket · 개인 건강정보 도구. 실제 진료에서는 공식 의료기록과 의료진의 판단을 따르세요."},
+ja:{subtitle:"多言語ポケット電子カルテ",nav:{overview:"概要",personal:"個人歴",disease:"既往歴",family:"家族歴",surgery:"手術・入院歴",medication:"服薬・アレルギー",lifestyle:"生活・予防",emergency:"緊急情報"},hero:{title:"健康情報をひと目で",desc:"旅行、受診、紹介、緊急時に重要な病歴をすぐ確認できます。"},localOnly:"データはこのブラウザ内だけに保存されます",status:"静的オフライン記録ツールです。自動アップロードは行いません。",overview:{basic:"基本情報",med:"現在の服薬",alert:"重要な注意事項"},personal:{title:"個人歴"},disease:{title:"既往歴・診断"},family:{title:"家族歴"},surgery:{title:"手術・入院歴"},med:{title:"現在の服薬"},allergy:{title:"アレルギー"},vacc:{title:"予防接種"},life:{title:"生活習慣"},prevent:{title:"予防医療"},other:{title:"その他の重要情報"},emergency:{title:"緊急時情報"},save:"保存",export:"JSON書き出し",print:"印刷 / PDF",clear:"ローカルデータを削除",f:{name:"氏名",dob:"生年月日",sex:"性別",blood:"血液型",height:"身長 cm",weight:"体重 kg",nationality:"国籍 / 居住地",language:"主な言語",contact:"連絡先 / 緊急連絡先",notes:"重要な検査 / 現在の状態",genetic:"遺伝性疾患 / 家族リスク",anesthesia:"麻酔に関する問題・反応",smoke:"喫煙",alcohol:"飲酒",exercise:"運動",diet:"食事 / 制限",screening:"最近の健康診断 / 検診",dental:"歯科 / 眼科情報",emergency:"緊急連絡先",phone:"電話",doctor:"主治医 / クリニック",insurance:"保険 / 会員番号",alert:"医療者が優先して確認する情報"},footer:"MyCare Pocket · 個人健康情報ツール。実際の診療では正式な医療記録と医療者の判断を優先してください。"}};
+
+function get(o,k){return k.split(".").reduce((a,b)=>a?.[b],o)}
+function applyLang(lang){
+ const t=T[lang]; document.documentElement.lang={zh:"zh-Hant",en:"en",ko:"ko",ja:"ja"}[lang];
+ document.querySelectorAll("[data-i18n]").forEach(e=>{const v=get(t,e.dataset.i18n);if(v)e.textContent=v});
+ document.querySelectorAll("[data-placeholder]").forEach(e=>{const v=get(t,e.dataset.placeholder);if(v)e.placeholder=v});
+ localStorage.setItem("mcp-lang",lang); updateSummary();
+}
+function save(){const d={};fields.forEach(id=>d[id]=document.getElementById(id)?.value||"");localStorage.setItem("mycare-pocket",JSON.stringify(d));updateSummary()}
+function load(){try{const d=JSON.parse(localStorage.getItem("mycare-pocket")||"{}");fields.forEach(id=>{if(d[id]!==undefined)document.getElementById(id).value=d[id]})}catch{}}
+function updateSummary(){const d=JSON.parse(localStorage.getItem("mycare-pocket")||"{}");document.getElementById("summaryBasic").textContent=d.name||"—";document.getElementById("summaryMed").textContent=d.medications||"—";document.getElementById("summaryAlert").textContent=d.alert||d.allergies||"—"}
+function exportJSON(){save();const blob=new Blob([localStorage.getItem("mycare-pocket")||"{}"],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mycare-pocket.json";a.click();URL.revokeObjectURL(a.href)}
+function clearAll(){if(confirm("Clear all locally saved medical data?")){localStorage.removeItem("mycare-pocket");location.reload()}}
+document.querySelectorAll(".nav-btn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav-btn,.section").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.getElementById(b.dataset.target).classList.add("active")});
+document.getElementById("language").onchange=e=>applyLang(e.target.value);
+load(); const lang=localStorage.getItem("mcp-lang")||"zh";document.getElementById("language").value=lang;applyLang(lang);
+</script>
+</body>
+</html>
